@@ -11,8 +11,12 @@ class BaseLayout extends Component {
 
   state = {
     displayDialog: false,
-    username: '',
+    firstName: '',
+    lastName: '',
+    lpNum: '',
     loggedIn: false,
+    username: '',
+    signingUp: false,
     password: '',
   }
 
@@ -35,7 +39,32 @@ class BaseLayout extends Component {
     }
   }
 
+  toggleSignUpState = () => {
+    this.setState({signingUp: !this.state.signingUp});
+  }
+
   render() {
+
+    const switchMsg = this.state.signingUp ? 'Already have an account?' : 'Don\'t have an account?';
+    const btnTxt = this.state.signingUp ? 'Login' : 'Sign Up';
+
+    const newAcctDetails = this.state.signingUp ? <div>
+      <TextField
+        floatingLabelText="First Name"
+        onChange={(evt) => this.handleInputChange(evt.target.value, 'firstName')}
+        value={this.state.firstName}
+      /><br />
+      <TextField
+        floatingLabelText="Last Name"
+        onChange={(evt) => this.handleInputChange(evt.target.value, 'lastName')}
+        value={this.state.lastName}
+      /><br />
+      <TextField
+        floatingLabelText="License Plate Number"
+        onChange={(evt) => this.handleInputChange(evt.target.value, 'lpNum')}
+        value={this.state.lpNum}
+      /><br />
+    </div> : null;
 
     console.log('BASE LAYOUT STATE', this.state)
 
@@ -68,6 +97,7 @@ class BaseLayout extends Component {
           open={this.state.displayDialog}
           onRequestClose={this.toggleDialog}
         >
+          {newAcctDetails}
           <TextField
             floatingLabelText="Username"
             onChange={(evt) => this.handleInputChange(evt.target.value, 'username')}
@@ -79,6 +109,8 @@ class BaseLayout extends Component {
             type="password"
             value={this.state.password}
           />
+          <p>{switchMsg}</p>
+          <FlatButton label={btnTxt} onClick={this.toggleSignUpState} />
         </Dialog>
 
       </div>
