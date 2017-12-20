@@ -1,5 +1,74 @@
 body {
   margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
+  font-family: sans-serif; }
+
+.Page {
+  margin: 100px; }
+
+.Dashboard .toll-tags {
+  display: flex; }
+
+.Dashboard .tag {
+  box-shadow: 2px 2px 10px gray;
+  margin: 10px;
+  padding: 10px;
+  height: 300px;
+  display: flex;
+  flex-direction: column; }
+  .Dashboard .tag .details {
+    flex-grow: 1; }
+
+.Home {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("/assets/images/victor-sanchez-berruezo-366290.jpg");
+  background-size: cover;
+  background-repeat: no-repeat; }
+  .Home .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); }
+  .Home .sign-up-form {
+    background-color: white;
+    position: absolute;
+    right: 140px;
+    top: 100px;
+    padding: 30px 100px;
+    border-radius: 2px; }
+
+.SideBar {
+  height: 100vh;
+  width: 200px;
+  position: absolute;
+  background-color: #1a237e;
+  transition: 1000ms; }
+  .SideBar.open {
+    left: 0; }
+  .SideBar.closed {
+    left: -200px; }
+
+.Table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #1a237e;
+  justify-content: space-between; }
+  .Table .event {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #1a237e;
+    padding: 0 20px; }
+    .Table .event:nth-child(even) {
+      background-color: #EEE; }
+    .Table .event > div {
+      align-self: flex-start;
+      flex-basis: 30%;
+      box-sizing: border-box;
+      padding: 5px; }
+  .Table .header {
+    font-weight: 600;
+    color: white;
+    background-color: #ff6f00; }

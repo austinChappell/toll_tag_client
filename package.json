@@ -5,15 +5,18 @@
   "dependencies": {
     "dotenv": "^4.0.0",
     "material-ui": "^0.20.0",
+    "node-sass": "^4.7.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
+    "react-stripe-checkout": "^2.6.3",
     "redux": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
+    "sass": "node-sass src/styles/App.scss src/index.css -w -r",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

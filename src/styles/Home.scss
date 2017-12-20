@@ -1,0 +1,24 @@
+.Home {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('/assets/images/victor-sanchez-berruezo-366290.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); 
+  }
+  .sign-up-form {
+    background-color: white;
+    position: absolute;
+    right: 140px;
+    top: 100px;
+    padding: 30px 100px;
+    border-radius: 2px;
+  }
+}

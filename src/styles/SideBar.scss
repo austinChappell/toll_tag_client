@@ -1,0 +1,13 @@
+.SideBar {
+  height: 100vh;
+  width: 200px;
+  position: absolute;
+  background-color: $color-secondary;
+  transition: 1000ms;
+  &.open {
+    left: 0;
+  }
+  &.closed {
+    left: -200px;
+  }
+}

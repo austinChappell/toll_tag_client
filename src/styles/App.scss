@@ -1,0 +1,20 @@
+$color-primary: #ff6f00;
+$color-primary-dark: #ffa040;
+$color-primary-light: #c43e00;
+$color-secondary: #1a237e;
+$color-secondary-dark: #534bae;
+$color-secondary-light: #000051;
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.Page {
+  margin: 100px;
+}
+
+@import './Dashboard';
+@import './Home';
+@import './SideBar';
+@import './Table';

@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import SideBar from './SideBar';
 import TextField from 'material-ui/TextField';
 
 class BaseLayout extends Component {
@@ -16,16 +15,30 @@ class BaseLayout extends Component {
     firstName: '',
     lastName: '',
     lpNum: '',
-    loggedIn: false,
+    loggedIn: true,
+    openSideBar: false,
     username: '',
     signingUp: false,
     password: '',
+  }
+
+  componentDidMount() {
+    console.log('BASELAYOUT COMPONENT UPDATED');
+    if (this.state.loggedIn && !this.props.user.active) {
+      if (window.location.pathname !== '/payment_details') {
+        window.location = '/payment_details';
+      }
+    }
   }
 
   handleInputChange = (val, key) => {
     const o = {};
     o[key] = val;
     this.setState(o);
+  }
+
+  toggleSideBar = () => {
+    this.setState({ sideBarOpen: !this.state.sideBarOpen })
   }
 
   toggleDialog = () => {
@@ -47,8 +60,10 @@ class BaseLayout extends Component {
 
   render() {
 
-    const switchMsg = this.state.signingUp ? 'Already have an account?' : 'Don\'t have an account?';
-    const btnTxt = this.state.signingUp ? 'Login' : 'Sign Up';
+    const switchMsg = this.state.signingUp ?
+      'Already have an account?' :
+      'Need a Toll Tag?';
+    const btnTxt = this.state.signingUp ? 'Login' : 'Purchase';
 
     const newAcctDetails = this.state.signingUp ? <div>
       <TextField
@@ -88,13 +103,17 @@ class BaseLayout extends Component {
     return (
       <div className="BaseLayout">
         <AppBar
-          title="Title"
+          title="NTTA"
+          onLeftIconButtonClick={this.toggleSideBar}
+          iconStyleLeft={{ display: this.state.loggedIn ? 'inline-block' : 'none' }}
           iconElementRight={<FlatButton label={this.state.loggedIn ? 'Logout' : 'Login'} onClick={this.toggleLogin} />}
         />
+        <SideBar open={this.state.sideBarOpen} />
+
         {this.props.children}
 
         <Dialog
-          title="Login"
+          title={this.state.signingUp ? 'Buy A Toll Tag' : 'Login'}
           actions={actions}
           modal={false}
           open={this.state.displayDialog}
@@ -123,7 +142,8 @@ class BaseLayout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    apiURL: state.apiURL
+    apiURL: state.apiURL,
+    user: state.user
   }
 }
 

@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
 import '../index.css';
 
+import Admin from './Admin';
 import BaseLayout from './BaseLayout';
+import CreditCard from './CreditCard';
+import Dashboard from './Dashboard';
 import Home from './Home';
 import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Settings from './Settings';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import store from '../store/';
 
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: '#070649',
-    primary2Color: '#9A6197',
-    primary3Color: '#B8B7D5',
-    accent1Color: '#9A6197',
-    // accent2Color: grey100,
-    // accent3Color: grey500,
+    primary1Color: '#ff6f00',
+    primary2Color: '#ffa040',
+    primary3Color: '#c43e00',
+    accent1Color: '#1a237e',
+    accent2Color: '#534bae',
+    accent3Color: '#000051',
     // textColor: darkBlack,
     // alternateTextColor: white,
     // canvasColor: white,
@@ -35,12 +39,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Provider store={store}>          
+        <Provider store={store}>
           <MuiThemeProvider muiTheme={muiTheme}>
             <Router>
               <BaseLayout>
                 <Switch>
-                  <Route path="/" component={Home} />
+                  <Route exact path="/" component={Home} />
+                  <Route path="/dashboard" component={Dashboard} />
+                  <Route path="/admin" component={Admin} />
+                  <Route path="/payment_details" component={CreditCard} />
+                  <Route path="/settings" component={Settings} />
                 </Switch>
               </BaseLayout>
             </Router>
