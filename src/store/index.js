@@ -49,7 +49,7 @@ const initialState = {
     },
   ],
   loggedIn: false,
-  token: '32c99253c685',
+  token: 'D3D02975D337',
   user: {
     active: true,
     isAdmin: false,

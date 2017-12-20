@@ -250,7 +250,9 @@ class NavBar extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    apiURL: state.apiURL,
     loggedIn: state.loggedIn,
+    token: state.token,
     user: state.user
   }
 }
