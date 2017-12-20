@@ -3,7 +3,7 @@ import { createStore } from 'redux';
 let apiURL;
 
 if (process.env.NODE_ENV === 'development') {
-  apiURL = 'http://localhost:6001';
+  apiURL = 'https://tolltag.localtunnel.me/api';
 } else {
   apiURL = 'somethingelse';
 }
@@ -54,10 +54,15 @@ const initialState = {
       charge: 0.75
     },
   ],
+  loggedIn: false,
+  token: '32c99253c685',
   user: {
     active: true,
-    isAdmin: true,
-    loggedIn: true
+    isAdmin: false,
+    loggedIn: true,
+    firstName: 'Austin',
+    lastName: 'Chappell',
+    email: 'austin@cratebind.com'
   },
   users: [
     {

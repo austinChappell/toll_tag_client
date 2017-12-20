@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import '../index.css';
+import NavBar from './NavBar';
 
 import Admin from './Admin';
 import BaseLayout from './BaseLayout';
 import CreditCard from './CreditCard';
 import Dashboard from './Dashboard';
+import FlatButton from 'material-ui/FlatButton';
 import Home from './Home';
 import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -23,14 +25,7 @@ const muiTheme = getMuiTheme({
     accent1Color: '#1a237e',
     accent2Color: '#534bae',
     accent3Color: '#000051',
-    // textColor: darkBlack,
-    // alternateTextColor: white,
-    // canvasColor: white,
-    // borderColor: grey300,
-    // disabledColor: fade(darkBlack, 0.3),
     pickerHeaderColor: '#070649',
-    // clockCircleColor: fade(darkBlack, 0.07),
-    // shadowColor: fullBlack,
   },
 });
 
@@ -42,7 +37,8 @@ class App extends Component {
         <Provider store={store}>
           <MuiThemeProvider muiTheme={muiTheme}>
             <Router>
-              <BaseLayout>
+              <div>
+                <NavBar />
                 <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/dashboard" component={Dashboard} />
@@ -50,7 +46,7 @@ class App extends Component {
                   <Route path="/payment_details" component={CreditCard} />
                   <Route path="/settings" component={Settings} />
                 </Switch>
-              </BaseLayout>
+              </div>
             </Router>
           </MuiThemeProvider>
         </Provider>

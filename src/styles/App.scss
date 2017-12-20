@@ -14,7 +14,12 @@ body {
   margin: 100px;
 }
 
+.hide {
+  display: none;
+}
+
 @import './Dashboard';
 @import './Home';
+@import './NavBar';
 @import './SideBar';
 @import './Table';

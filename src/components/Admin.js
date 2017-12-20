@@ -27,9 +27,9 @@ class Admin extends Component {
               Balance
             </div>
           </div>
-          {this.props.users.map((user) => {
+          {this.props.users.map((user, index) => {
             return (
-              <div className="item">
+              <div className="item" key={index}>
                 <div>
                   {user.firstName}
                 </div>

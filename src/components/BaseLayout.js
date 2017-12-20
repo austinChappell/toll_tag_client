@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router'
 
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
 import Dialog from 'material-ui/Dialog';
@@ -15,7 +17,7 @@ class BaseLayout extends Component {
     firstName: '',
     lastName: '',
     lpNum: '',
-    loggedIn: false,
+    loggedIn: true,
     openSideBar: false,
     username: '',
     signingUp: false,
@@ -31,10 +33,28 @@ class BaseLayout extends Component {
     }
   }
 
+  getTollTags = (token) => {
+    const apiURL = this.props.apiURL;
+    fetch(`${apiURL}/user_toll_tag.json?user_token=${token}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      mode: 'no-cors'
+    }).then((response) => {
+      return response.json();
+    }).then((results) => {
+      console.log('RESULTS', results);
+    })
+  }
+
   handleInputChange = (val, key) => {
     const o = {};
     o[key] = val;
     this.setState(o);
+  }
+
+  login = () => {
+    this.getTollTags(this.props.token);
   }
 
   logout = () => {
@@ -56,6 +76,7 @@ class BaseLayout extends Component {
     } else {
       console.log('LOGGING IN');
       this.toggleDialog();
+      this.login();
     }
   }
 
@@ -113,7 +134,8 @@ class BaseLayout extends Component {
           iconStyleLeft={{ display: this.state.loggedIn ? 'inline-block' : 'none' }}
           iconElementRight={<FlatButton label={this.state.loggedIn ? 'Logout' : 'Login'} onClick={this.toggleLogin} />}
         />
-        <SideBar open={this.state.sideBarOpen} />
+
+        <SideBar />
 
         {this.props.children}
 
@@ -148,6 +170,7 @@ class BaseLayout extends Component {
 const mapStateToProps = (state) => {
   return {
     apiURL: state.apiURL,
+    token: state.token,
     user: state.user
   }
 }
@@ -163,4 +186,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BaseLayout);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BaseLayout));

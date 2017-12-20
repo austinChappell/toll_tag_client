@@ -5,6 +5,9 @@ body {
 .Page {
   margin: 100px; }
 
+.hide {
+  display: none; }
+
 .Dashboard .toll-tags {
   display: flex; }
 
@@ -39,6 +42,11 @@ body {
     top: 100px;
     padding: 30px 100px;
     border-radius: 2px; }
+
+.NavBar a h2 {
+  color: white;
+  text-decoration: none;
+  padding: 0 10px; }
 
 .SideBar {
   height: 100vh;

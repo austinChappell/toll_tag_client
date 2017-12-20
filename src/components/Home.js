@@ -23,14 +23,39 @@ class Home extends Component {
     this.setState(o);
   }
 
-  signUp = () => {
-    console.log('signing up');
-    if (this.props.user.isAdmin) {
-      window.location = '/admin';
-    } else {
-      window.location = '/dashboard';
+  signup = () => {
+    const body = {
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
+      email: this.state.email,
+      lpNum: this.state.lpNum,
+      username: this.state.username,
+      password: this.state.password
     }
+    const apiURL = this.props.apiURL;
+    fetch(`${apiURL}/users/create_user`, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      mode: 'no-cors',
+      method: 'POST',
+      body: JSON.stringify(body)
+    }).then((response) => {
+      return response.json();
+    }).then((results) => {
+      console.log('RESULTS', results);
+    // this.getTollTags(this.props.token);
+    // this.getEvents(this.props.token);
+    })
+    console.log('BODY', body)
+    console.log('signing up');
+    // if (this.props.user.isAdmin) {
+    //   window.location = '/admin';
+    // } else {
+    //   window.location = '/dashboard';
+    // }
   }
+
 
   render() {
     return (
@@ -74,7 +99,7 @@ class Home extends Component {
             <br />
             <RaisedButton
               label="Purchase Toll Tag"
-              onClick={this.signUp}
+              onClick={this.signup}
               secondary={true}
               style={{marginTop: '30px'}}
             />
@@ -87,6 +112,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    apiURL: state.apiURL,
     user: state.user
   }
 }

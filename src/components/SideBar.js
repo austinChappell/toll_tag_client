@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 class SideBar extends Component {
+
+  redirect = (path) => {
+    window.location = path;
+  }
+
   render() {
     return (
       <div className={this.props.open ? "SideBar open" : "SideBar closed"}>
