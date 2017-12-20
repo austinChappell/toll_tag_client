@@ -3,9 +3,11 @@ import '../index.css';
 
 import BaseLayout from './BaseLayout';
 import Home from './Home';
+import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import store from '../store/';
 
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -33,15 +35,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <MuiThemeProvider muiTheme={muiTheme}>
-          <Router>
-            <BaseLayout>
-              <Switch>
-                <Route path="/" component={Home} />
-              </Switch>
-            </BaseLayout>
-          </Router>
-        </MuiThemeProvider>
+        <Provider store={store}>          
+          <MuiThemeProvider muiTheme={muiTheme}>
+            <Router>
+              <BaseLayout>
+                <Switch>
+                  <Route path="/" component={Home} />
+                </Switch>
+              </BaseLayout>
+            </Router>
+          </MuiThemeProvider>
+        </Provider>
       </div>
     );
   }

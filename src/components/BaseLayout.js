@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+
 import AppBar from 'material-ui/AppBar';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -66,7 +68,8 @@ class BaseLayout extends Component {
       /><br />
     </div> : null;
 
-    console.log('BASE LAYOUT STATE', this.state)
+    console.log('BASE LAYOUT STATE', this.state);
+    console.log('API', this.props.apiURL);
 
     const actions = [
       <FlatButton
@@ -118,4 +121,10 @@ class BaseLayout extends Component {
   }
 }
 
-export default BaseLayout;
+const mapStateToProps = (state) => {
+  return {
+    apiURL: state.apiURL
+  }
+}
+
+export default connect(mapStateToProps)(BaseLayout);
