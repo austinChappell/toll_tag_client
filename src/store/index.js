@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 
-let apiURL = 'https://tolltags.herokuapp.com/';
+let apiURL = 'https://tolltags.herokuapp.com';
 
 const initialState = {
   apiURL: apiURL,
