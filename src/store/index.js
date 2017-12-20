@@ -1,12 +1,6 @@
 import { createStore } from 'redux';
 
-let apiURL;
-
-if (process.env.NODE_ENV === 'development') {
-  apiURL = 'https://tolltag.localtunnel.me/api';
-} else {
-  apiURL = 'somethingelse';
-}
+let apiURL = 'https://tolltag.localtunnel.me/api';
 
 const initialState = {
   apiURL: apiURL,
