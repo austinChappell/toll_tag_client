@@ -15,7 +15,7 @@ class BaseLayout extends Component {
     firstName: '',
     lastName: '',
     lpNum: '',
-    loggedIn: true,
+    loggedIn: false,
     openSideBar: false,
     username: '',
     signingUp: false,
@@ -37,6 +37,10 @@ class BaseLayout extends Component {
     this.setState(o);
   }
 
+  logout = () => {
+    this.props.logout();
+  }
+
   toggleSideBar = () => {
     this.setState({ sideBarOpen: !this.state.sideBarOpen })
   }
@@ -48,6 +52,7 @@ class BaseLayout extends Component {
   toggleLogin = () => {
     if (this.state.loggedIn) {
       console.log('LOGGING OUT');
+      this.logout();
     } else {
       console.log('LOGGING IN');
       this.toggleDialog();
@@ -147,4 +152,15 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(BaseLayout);
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+    logout: () => {
+      const action = { type: 'LOGOUT' };
+      dispatch(action);
+    }
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BaseLayout);

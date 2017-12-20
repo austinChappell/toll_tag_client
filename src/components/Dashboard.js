@@ -41,7 +41,34 @@ class Dashboard extends Component {
             )
           })}
         </div>
-        <Table events={this.state.events} />
+        <Table>
+          <div className="item header">
+            <div className="title">
+              Location
+            </div>
+            <div className="date">
+              Date
+            </div>
+            <div className="charge">
+              Amount
+            </div>
+          </div>
+          {this.state.events.map((event, index) => {
+            return (
+              <div className="item">
+                <div className="title">
+                  {event.location}
+                </div>
+                <div className="date">
+                  {event.created_at}
+                </div>
+                <div className="charge">
+                  ${event.charge}
+                </div>
+              </div>
+            )
+          })}
+        </Table>
       </div>
     )
   }

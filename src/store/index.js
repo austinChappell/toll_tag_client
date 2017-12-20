@@ -56,12 +56,51 @@ const initialState = {
   ],
   user: {
     active: true,
-    isAdmin: false
-  }
+    isAdmin: true,
+    loggedIn: true
+  },
+  users: [
+    {
+      firstName: 'Austin',
+      lastName: 'Chappell',
+      id: 1,
+      balance: 34.74
+    },
+    {
+      firstName: 'Eric',
+      lastName: 'Chen',
+      id: 2,
+      balance: 36.74
+    },
+    {
+      firstName: 'Matt',
+      lastName: 'Wood',
+      id: 3,
+      balance: 24.52
+    },
+    {
+      firstName: 'Juan',
+      lastName: 'Carlos',
+      id: 4,
+      balance: 14.74
+    },
+    {
+      firstName: 'Yang',
+      lastName: 'Yu',
+      id: 5,
+      balance: 42.39
+    },
+  ]
 }
 
 const reducer = (state = initialState, action) => {
-  return state;
+  console.log('RUNNING REDUCER', action.type);
+  switch(action.type) {
+    case 'LOGOUT':
+      return Object.assign({}, state, {user: { loggedIn: false }});
+    default:
+      return state;
+  }
 }
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

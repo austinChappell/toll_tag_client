@@ -45,25 +45,30 @@ body {
   width: 200px;
   position: absolute;
   background-color: #1a237e;
-  transition: 1000ms; }
+  transition: 500ms;
+  padding: 20px;
+  box-sizing: border-box; }
   .SideBar.open {
     left: 0; }
   .SideBar.closed {
     left: -200px; }
+  .SideBar a {
+    color: white;
+    text-decoration: none; }
 
 .Table {
   display: flex;
   flex-direction: column;
   border: 1px solid #1a237e;
   justify-content: space-between; }
-  .Table .event {
+  .Table .item {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #1a237e;
     padding: 0 20px; }
-    .Table .event:nth-child(even) {
+    .Table .item:nth-child(even) {
       background-color: #EEE; }
-    .Table .event > div {
+    .Table .item > div {
       align-self: flex-start;
       flex-basis: 30%;
       box-sizing: border-box;

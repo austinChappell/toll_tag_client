@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
 
+import Table from './Table';
+
 class Admin extends Component {
 
   componentDidMount() {
@@ -12,8 +14,35 @@ class Admin extends Component {
 
   render() {
     return (
-      <div className="Admin">
-        Admin Component
+      <div className="Admin Page">
+        <Table>
+          <div className="item header">
+            <div className="title">
+              First Name
+            </div>
+            <div className="date">
+              Last Name
+            </div>
+            <div className="charge">
+              Balance
+            </div>
+          </div>
+          {this.props.users.map((user) => {
+            return (
+              <div className="item">
+                <div>
+                  {user.firstName}
+                </div>
+                <div>
+                  {user.lastName}
+                </div>
+                <div>
+                  ${user.balance}
+                </div>
+              </div>
+            )
+          })}
+        </Table>
       </div>
     )
   }
@@ -21,7 +50,8 @@ class Admin extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    users: state.users
   }
 }
 

@@ -3,11 +3,17 @@
   width: 200px;
   position: absolute;
   background-color: $color-secondary;
-  transition: 1000ms;
+  transition: 500ms;
+  padding: 20px;
+  box-sizing: border-box;
   &.open {
     left: 0;
   }
   &.closed {
     left: -200px;
+  }
+  a {
+    color: white;
+    text-decoration: none;
   }
 }
