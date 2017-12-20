@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 
-let apiURL = 'https://tolltag.localtunnel.me/api';
+let apiURL = 'https://tolltags.herokuapp.com/';
 
 const initialState = {
   apiURL: apiURL,
