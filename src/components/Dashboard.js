@@ -12,9 +12,9 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    if (this.props.user.isAdmin) {
-      window.location = '/admin'
-    }
+    // if (this.props.user.isAdmin) {
+    //   window.location = '/admin'
+    // }
   }
 
   filterEvents = (id) => {
@@ -55,7 +55,7 @@ class Dashboard extends Component {
           </div>
           {this.state.events.map((event, index) => {
             return (
-              <div className="item">
+              <div className="item" key={index}>
                 <div className="title">
                   {event.location}
                 </div>

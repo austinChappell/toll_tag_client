@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
-import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import SideBar from './SideBar';
+import storeConstants from '../store/constants';
+
+import data from '../data/data';
 
 class NavBar extends Component {
 
@@ -14,7 +17,6 @@ class NavBar extends Component {
     email: '',
     lastName: '',
     lpNum: '',
-    loggedIn: true,
     openSideBar: false,
     username: '',
     signingUp: false,
@@ -22,47 +24,31 @@ class NavBar extends Component {
   }
 
   componentDidMount() {
-    console.log('BASELAYOUT COMPONENT UPDATED');
-    if (this.state.loggedIn && !this.props.user.active) {
-      if (window.location.pathname !== '/payment_details') {
-        window.location = '/payment_details';
-      }
-    }
+
+    this.getUsers();
+
   }
 
-  getTollTags = (token) => {
-    const apiURL = this.props.apiURL;
-    fetch(`${apiURL}/user_toll_tag.json?user_token=${token}`, {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      mode: 'no-cors'
-    }).then((response) => {
-      console.log('RESPONSE', response);
-      return response.json();
-    }).then((results) => {
-      console.log('RESULTS', results);
-    }).catch((err) => {
-      console.error('GET TOLL TAGS ERROR', err);
-    })
+  getTollTags = (user) => {
+
+    const tollTags = data.tollTags.filter(tag => tag.user_id === user.id);
+    this.props.setTollTags(tollTags);
+    this.getEvents(tollTags);
+
   }
 
-  getEvents = (token) => {
-    const apiURL = this.props.apiURL;
-    console.log('API URL', apiURL);
-    fetch(`${apiURL}/toll_events/all_events.json?toll_tag_pin=${token}`, {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      // mode: 'no-cors'
-    }).then((response) => {
-      console.log('RESPONSE', response);
-      return response.json();
-    }).then((results) => {
-      console.log('RESULTS', results);
-    }).catch((err) => {
-      console.error('GET EVENTS ERROR', err);
-    })
+  getEvents = (tollTags) => {
+
+    const tollTagIds = tollTags.map(tag => tag.id);
+    const events = data.events.filter(event => tollTagIds.includes(event.toll_tag_id));
+    console.log('events', events);
+    this.props.setEvents(events);
+
+  }
+
+  getUsers() {
+    const users = data.users;
+    this.props.setUsers(users);
   }
 
   handleInputChange = (val, key) => {
@@ -72,6 +58,7 @@ class NavBar extends Component {
   }
 
   signup = () => {
+
     const body = {
       first_name: this.state.firstName,
       last_name: this.state.lastName,
@@ -80,68 +67,60 @@ class NavBar extends Component {
       username: this.state.username,
       password: this.state.password
     }
-    const apiURL = this.props.apiURL;
-    fetch(`${apiURL}/users/create_user`, {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      mode: 'no-cors',
-      method: 'POST',
-      body: JSON.stringify(body)
-    }).then((response) => {
-      return response.json();
-    }).then((results) => {
-      console.log('RESULTS', results);
-    // this.getTollTags(this.props.token);
-    // this.getEvents(this.props.token);
-    })
-    console.log('BODY', body)
+
   }
 
   login = () => {
+
     const body = {
       username: this.state.username,
       password: this.state.password
     }
-    const apiURL = this.props.apiURL;
-    // fetch(`${apiURL}/login`, {
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   mode: 'no-cors',
-    //   method: 'POST',
-    //   body: JSON.stringify(body)
-    // }).then((response) => {
-    //   return response.json();
-    // }).then((results) => {
-    //   console.log('RESULTS', results);
-    // this.getTollTags(this.props.token);
-    this.getEvents(this.props.token);
-    // })
-    console.log('BODY', body);
+
+    const users = this.props.users;
+    const match = users.filter(user => user.email === body.username && user.password === body.password);
+
+    if (match) {
+
+      this.props.setUser(match[0]);
+      this.getTollTags(match[0]);
+      this.props.login();
+      this.toggleDialog();
+
+    }
+
   }
 
   logout = () => {
+
     this.props.logout();
+
   }
 
   submitForm = () => {
+
     if (this.state.signingUp) {
       this.signup();
     } else {
       this.login();
     }
+
   }
 
   toggleSideBar = () => {
+
     this.setState({ sideBarOpen: !this.state.sideBarOpen })
+
   }
 
   toggleDialog = () => {
+
     this.setState({ displayDialog: !this.state.displayDialog });
+
   }
 
   toggleLogin = () => {
+
     if (this.props.loggedIn) {
       console.log('LOGGING OUT');
       this.logout();
@@ -150,15 +129,19 @@ class NavBar extends Component {
       this.toggleDialog();
       // this.login();
     }
+
   }
 
   toggleSignUpState = () => {
+
     this.setState({signingUp: !this.state.signingUp});
+
   }
 
   render() {
 
-    console.log('NAVBAR STATE', this.state)
+    console.log('NAVBAR STATE', this.state);
+    console.log('NAVBAR PROPS', this.props);
 
     const switchMsg = this.state.signingUp ?
       'Already have an account?' :
@@ -210,58 +193,79 @@ class NavBar extends Component {
         <AppBar
           title="NTTA"
           onLeftIconButtonClick={this.toggleSideBar}
-          iconStyleLeft={{ display: 'none' }}
-          >
-            <NavLink to={this.props.user.isAdmin ? "/admin" : "/dashboard"} style={{textDecoration: 'none'}}>
-              <h2>{this.props.user.isAdmin ? "Admin" : "Dashboard"}</h2>
-            </NavLink>
-            <NavLink to="/settings" style={{textDecoration: 'none'}}>
-              <h2>Settings</h2>
-            </NavLink>
-            <h2 onClick={this.toggleLogin}>{this.props.loggedIn ? 'Logout' : 'Login'}</h2>
-          </AppBar>
-          <Dialog
-            title={this.state.signingUp ? 'Buy A Toll Tag' : 'Login'}
-            actions={actions}
-            modal={false}
-            open={this.state.displayDialog}
-            onRequestClose={this.toggleDialog}
-          >
-            {newAcctDetails}
-            <TextField
-              floatingLabelText="Username"
-              onChange={(evt) => this.handleInputChange(evt.target.value, 'username')}
-              value={this.state.username}
-            /><br />
-            <TextField
-              floatingLabelText="Password"
-              onChange={(evt => this.handleInputChange(evt.target.value, 'password'))}
-              type="password"
-              value={this.state.password}
-            />
-            <p>{switchMsg}</p>
-            <FlatButton label={btnTxt} onClick={this.toggleSignUpState} />
-          </Dialog>
+          iconStyleLeft={{ display: this.props.loggedIn ? 'inline-block' : 'none' }}
+          iconElementRight={<FlatButton label={this.props.loggedIn ? 'Logout' : 'Login'} onClick={this.toggleLogin} />}
+        />
 
-        </div>
-      )
-    }
+        <SideBar open={this.state.sideBarOpen} toggleSideBar={this.toggleSideBar} />
+        <Dialog
+          title={this.state.signingUp ? 'Buy A Toll Tag' : 'Login'}
+          actions={actions}
+          modal={false}
+          open={this.state.displayDialog}
+          onRequestClose={this.toggleDialog}
+        >
+          {newAcctDetails}
+          <TextField
+            floatingLabelText="Username"
+            onChange={(evt) => this.handleInputChange(evt.target.value, 'username')}
+            value={this.state.username}
+          /><br />
+          <TextField
+            floatingLabelText="Password"
+            onChange={(evt => this.handleInputChange(evt.target.value, 'password'))}
+            type="password"
+            value={this.state.password}
+          />
+          <p>{switchMsg}</p>
+          <FlatButton label={btnTxt} onClick={this.toggleSignUpState} />
+        </Dialog>
+
+      </div>
+    )
   }
+}
 
 const mapStateToProps = (state) => {
   return {
     apiURL: state.apiURL,
     loggedIn: state.loggedIn,
     token: state.token,
-    user: state.user
+    user: state.user,
+    users: state.users
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
 
+    login: () => {
+      const action = { type: storeConstants.LOGIN };
+      dispatch(action);
+    },
+
     logout: () => {
-      const action = { type: 'LOGOUT' };
+      const action = { type: storeConstants.LOGOUT };
+      dispatch(action);
+    },
+
+    setEvents: (events) => {
+      const action = { type: storeConstants.SET_EVENTS, events };
+      dispatch(action);
+    },
+
+    setTollTags: (tollTags) => {
+      const action = { type: storeConstants.SET_TOLL_TAGS, tollTags };
+      dispatch(action);
+    },
+
+    setUser: (user) => {
+      const action = { type: storeConstants.SET_USER, user };
+      dispatch(action);
+    },
+
+    setUsers: (users) => {
+      const action = { type: storeConstants.SET_USERS, users };
       dispatch(action);
     }
 

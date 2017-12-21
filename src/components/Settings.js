@@ -20,6 +20,9 @@ class Settings extends Component {
   }
 
   render() {
+
+    console.log('SETTINGS STATE', this.state);
+
     return (
       <div className="Settings Page">
         <form>

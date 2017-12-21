@@ -3,10 +3,8 @@ import '../index.css';
 import NavBar from './NavBar';
 
 import Admin from './Admin';
-import BaseLayout from './BaseLayout';
 import CreditCard from './CreditCard';
 import Dashboard from './Dashboard';
-import FlatButton from 'material-ui/FlatButton';
 import Home from './Home';
 import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';

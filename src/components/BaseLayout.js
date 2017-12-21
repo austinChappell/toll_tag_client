@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router'
 
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
 import Dialog from 'material-ui/Dialog';
@@ -17,20 +16,10 @@ class BaseLayout extends Component {
     firstName: '',
     lastName: '',
     lpNum: '',
-    loggedIn: true,
     openSideBar: false,
     username: '',
     signingUp: false,
     password: '',
-  }
-
-  componentDidMount() {
-    console.log('BASELAYOUT COMPONENT UPDATED');
-    if (this.state.loggedIn && !this.props.user.active) {
-      if (window.location.pathname !== '/payment_details') {
-        window.location = '/payment_details';
-      }
-    }
   }
 
   getTollTags = (token) => {

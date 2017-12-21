@@ -17,6 +17,16 @@ class Home extends Component {
     password: '',
   }
 
+  componentDidUpdate() {
+    if (this.props.loggedIn) {
+      if (this.props.user.isAdmin) {
+        this.props.history.push('/admin');
+      } else {
+        this.props.history.push('/dashboard');
+      }
+    }
+  }
+
   handleInputChange = (val, key) => {
     const o = {};
     o[key] = val;
@@ -58,6 +68,9 @@ class Home extends Component {
 
 
   render() {
+
+    console.log('HOME PROPS', this.props)
+
     return (
       <div className="Home">
         <div className="overlay"></div>
@@ -113,6 +126,7 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   return {
     apiURL: state.apiURL,
+    loggedIn: state.loggedIn,
     user: state.user
   }
 }

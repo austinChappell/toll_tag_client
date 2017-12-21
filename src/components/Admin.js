@@ -7,9 +7,9 @@ import Table from './Table';
 class Admin extends Component {
 
   componentDidMount() {
-    if (!this.props.user.isAdmin) {
-      window.location = '/dashboard';
-    }
+    // if (!this.props.user.isAdmin) {
+    //   window.location = '/dashboard';
+    // }
   }
 
   render() {

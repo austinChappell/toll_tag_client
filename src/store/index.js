@@ -1,102 +1,33 @@
 import { createStore } from 'redux';
+import storeConstants from './constants';
 
 let apiURL = 'https://tolltags.localtunnel.me/api';
 
 const initialState = {
   apiURL: apiURL,
-  tollTags: [
-    {
-      id: 1,
-      vehicleTag: 1,
-      remainingBalance: 37.24,
-    },
-    {
-      id: 2,
-      vehicleTag: 2,
-      remainingBalance: 29.24
-    }
-  ],
-  events: [
-    {
-      location: 'DNT Walnut Hill',
-      created_at: new Date().toDateString(),
-      toll_tag_id: 1,
-      charge: 0.40
-    },
-    {
-      location: 'DNT Royal',
-      created_at: new Date().toDateString(),
-      toll_tag_id: 1,
-      charge: 0.40
-    },
-    {
-      location: '121 Prestion',
-      created_at: new Date().toDateString(),
-      toll_tag_id: 1,
-      charge: 0.90
-    },
-    {
-      location: 'DNT Josey',
-      created_at: new Date().toDateString(),
-      toll_tag_id: 2,
-      charge: 0.50
-    },
-    {
-      location: '121 Ohio',
-      created_at: new Date().toDateString(),
-      toll_tag_id: 2,
-      charge: 0.75
-    },
-  ],
+  tollTags: [],
+  events: [],
   loggedIn: false,
   token: 'D3D02975D337',
-  user: {
-    active: true,
-    isAdmin: false,
-    loggedIn: false,
-    firstName: 'Austin',
-    lastName: 'Chappell',
-    email: 'austin@cratebind.com'
-  },
-  users: [
-    {
-      firstName: 'Austin',
-      lastName: 'Chappell',
-      id: 1,
-      balance: 34.74
-    },
-    {
-      firstName: 'Eric',
-      lastName: 'Chen',
-      id: 2,
-      balance: 36.74
-    },
-    {
-      firstName: 'Matt',
-      lastName: 'Wood',
-      id: 3,
-      balance: 24.52
-    },
-    {
-      firstName: 'Juan',
-      lastName: 'Carlos',
-      id: 4,
-      balance: 14.74
-    },
-    {
-      firstName: 'Yang',
-      lastName: 'Yu',
-      id: 5,
-      balance: 42.39
-    },
-  ]
+  user: {},
+  users: []
 }
 
 const reducer = (state = initialState, action) => {
   console.log('RUNNING REDUCER', action.type);
   switch(action.type) {
-    case 'LOGOUT':
-      return Object.assign({}, state, {user: { loggedIn: false }});
+    case storeConstants.LOGIN:
+      return Object.assign({}, state, { loggedIn: true });
+    case storeConstants.LOGOUT:
+      return Object.assign({}, state, { loggedIn: false });
+    case storeConstants.SET_EVENTS:
+      return Object.assign({}, state, { events: action.events });
+    case storeConstants.SET_TOLL_TAGS:
+      return Object.assign({}, state, { tollTags: action.tollTags });
+    case storeConstants.SET_USER:
+      return Object.assign({}, state, { user: action.user })
+    case storeConstants.SET_USERS:
+      return Object.assign({}, state, { users: action.users })
     default:
       return state;
   }
