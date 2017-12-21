@@ -13,6 +13,7 @@ class NavBar extends Component {
 
   state = {
     displayDialog: false,
+    errorMsg: null,
     firstName: '',
     email: '',
     lastName: '',
@@ -71,6 +72,7 @@ class NavBar extends Component {
   handleInputChange = (val, key) => {
     const o = {};
     o[key] = val;
+    o.errorMsg = null;
     this.setState(o);
   }
 
@@ -104,6 +106,8 @@ class NavBar extends Component {
       this.props.login();
       this.toggleDialog();
 
+    } else {
+      this.setState({ errorMsg: 'Invalid Credentials' });
     }
 
   }
@@ -164,6 +168,7 @@ class NavBar extends Component {
       'Already have an account?' :
       'Need a Toll Tag?';
     const btnTxt = this.state.signingUp ? 'Login' : 'Purchase';
+    const errorMsg = this.state.errorMsg ? <div style={{color: 'red'}}>{this.state.errorMsg}</div> : null;
 
     const newAcctDetails = this.state.signingUp ? <div>
       <TextField
@@ -236,6 +241,7 @@ class NavBar extends Component {
           />
           <p>{switchMsg}</p>
           <FlatButton label={btnTxt} onClick={this.toggleSignUpState} />
+          {errorMsg}
         </Dialog>
 
       </div>
