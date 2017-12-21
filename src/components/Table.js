@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 
-class Table extends Component {
-  render() {
+function Table(props) {
     return (
       <div className="Table">
         <div className="item header">
-          {this.props.titles.map((title, index) => {
+          {props.titles.map((title, index) => {
             return (
               <div key={index}>{title}</div>
             )
           })}
         </div>
-        {this.props.data.map((data, index) => {
+        {props.data.map((data, index) => {
           return (
             <div className="item" key={index}>
-              {this.props.keys.map((key, index) => {
+              {props.keys.map((key, index) => {
                 return (
                   <div key={index}>{data[key]}</div>
                 )
@@ -24,7 +23,6 @@ class Table extends Component {
         })}
       </div>
     )
-  }
 }
 
 export default Table;
