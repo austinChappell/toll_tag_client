@@ -25,7 +25,24 @@ class NavBar extends Component {
 
   componentDidMount() {
 
+    this.checkLogin();
     this.getUsers();
+
+  }
+
+  componentDidUpdate() {
+    this.checkLogin();
+  }
+
+  checkLogin() {
+
+    const onIndex = window.location.pathname === '/';
+
+    if (!onIndex) {
+      if (!this.props.loggedIn) {
+        window.location = '/';
+      }
+    }
 
   }
 
@@ -41,7 +58,7 @@ class NavBar extends Component {
 
     const tollTagIds = tollTags.map(tag => tag.id);
     const events = data.events.filter(event => tollTagIds.includes(event.toll_tag_id));
-    console.log('events', events);
+    // console.log('events', events);
     this.props.setEvents(events);
 
   }
@@ -122,10 +139,10 @@ class NavBar extends Component {
   toggleLogin = () => {
 
     if (this.props.loggedIn) {
-      console.log('LOGGING OUT');
+      // console.log('LOGGING OUT');
       this.logout();
     } else {
-      console.log('LOGGING IN');
+      // console.log('LOGGING IN');
       this.toggleDialog();
       // this.login();
     }
@@ -140,8 +157,8 @@ class NavBar extends Component {
 
   render() {
 
-    console.log('NAVBAR STATE', this.state);
-    console.log('NAVBAR PROPS', this.props);
+    // console.log('NAVBAR STATE', this.state);
+    // console.log('NAVBAR PROPS', this.props);
 
     const switchMsg = this.state.signingUp ?
       'Already have an account?' :
@@ -171,8 +188,8 @@ class NavBar extends Component {
       /><br />
     </div> : null;
 
-    console.log('BASE LAYOUT STATE', this.state);
-    console.log('API', this.props.apiURL);
+    // console.log('BASE LAYOUT STATE', this.state);
+    // console.log('API', this.props.apiURL);
 
     const actions = [
       <FlatButton

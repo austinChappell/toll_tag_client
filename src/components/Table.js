@@ -4,7 +4,24 @@ class Table extends Component {
   render() {
     return (
       <div className="Table">
-        {this.props.children}
+        <div className="item header">
+          {this.props.titles.map((title, index) => {
+            return (
+              <div key={index}>{title}</div>
+            )
+          })}
+        </div>
+        {this.props.data.map((data, index) => {
+          return (
+            <div className="item" key={index}>
+              {this.props.keys.map((key, index) => {
+                return (
+                  <div key={index}>{data[key]}</div>
+                )
+              })}
+            </div>
+          )
+        })}
       </div>
     )
   }

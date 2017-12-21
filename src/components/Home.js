@@ -18,12 +18,12 @@ class Home extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.loggedIn) {
-      if (this.props.user.isAdmin) {
-        this.props.history.push('/admin');
-      } else {
-        this.props.history.push('/dashboard');
-      }
+    const loggedIn = this.props.loggedIn;
+    const isAdmin = this.props.user.isAdmin;
+    if (loggedIn && isAdmin) {
+      this.props.history.push('/admin');
+    } else if (loggedIn && !isAdmin) {
+      this.props.history.push('/dashboard');
     }
   }
 
@@ -42,34 +42,10 @@ class Home extends Component {
       username: this.state.username,
       password: this.state.password
     }
-    const apiURL = this.props.apiURL;
-    fetch(`${apiURL}/users/create_user`, {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      mode: 'no-cors',
-      method: 'POST',
-      body: JSON.stringify(body)
-    }).then((response) => {
-      return response.json();
-    }).then((results) => {
-      console.log('RESULTS', results);
-    // this.getTollTags(this.props.token);
-    // this.getEvents(this.props.token);
-    })
-    console.log('BODY', body)
-    console.log('signing up');
-    // if (this.props.user.isAdmin) {
-    //   window.location = '/admin';
-    // } else {
-    //   window.location = '/dashboard';
-    // }
   }
 
 
   render() {
-
-    console.log('HOME PROPS', this.props)
 
     return (
       <div className="Home">

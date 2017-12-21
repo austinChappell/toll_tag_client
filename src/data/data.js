@@ -7,7 +7,7 @@ const data = {
       id: 1,
       balance: 34.74,
       token: 'ads98fiuh2398wefay',
-      idAdmin: true,
+      isAdmin: true,
       email: 'austin@cratebind.com'
     },
     {
@@ -17,7 +17,7 @@ const data = {
       id: 2,
       balance: 36.74,
       token: '238asdjavopiasd23ewff',
-      idAdmin: true,
+      isAdmin: true,
       email: 'eric@cratebind.com'
     },
     {
@@ -27,7 +27,7 @@ const data = {
       id: 3,
       balance: 24.52,
       token: '239rp8asdfkljhawerpoi',
-      idAdmin: false,
+      isAdmin: false,
       email: 'matt@cratebind.com'
     },
     {
@@ -37,7 +37,7 @@ const data = {
       id: 4,
       balance: 14.74,
       token: 'wqgrj234khagoi2uwqkjnav',
-      idAdmin: false,
+      isAdmin: false,
       email: 'juan@cratebind.com'
     },
     {
@@ -47,7 +47,7 @@ const data = {
       id: 5,
       balance: 42.39,
       token: '23r98uadfh23erg9812ed',
-      idAdmin: false,
+      isAdmin: false,
       email: 'yang@cratebind.com'
     },
   ],
@@ -82,20 +82,50 @@ const data = {
       toll_tag_id: 2,
       charge: 0.75
     },
+    {
+      location: '121 Prestion',
+      created_at: new Date().toDateString(),
+      toll_tag_id: 3,
+      charge: 0.90
+    },
+    {
+      location: 'DNT Josey',
+      created_at: new Date().toDateString(),
+      toll_tag_id: 3,
+      charge: 0.50
+    },
   ],
   tollTags: [
     {
       id: 1,
       vehicleTag: 1,
+      make: 'Toyota',
+      model: 'Camry',
+      year: '2008',
+      lpNum: '28AE7C',
       remainingBalance: 37.24,
       user_id: 4,
     },
     {
       id: 2,
       vehicleTag: 2,
+      make: 'Honda',
+      model: 'CRV',
+      year: '2012',
+      lpNum: '231FA3',
       remainingBalance: 29.24,
       user_id: 3
-    }
+    },
+    {
+      id: 3,
+      vehicleTag: 3,
+      make: 'Honda',
+      model: 'Civic',
+      year: '2016',
+      lpNum: 'Z8T7CY',
+      remainingBalance: 27.09,
+      user_id: 4,
+    },
   ],
 }
 

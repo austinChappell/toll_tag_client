@@ -32,7 +32,7 @@ class BaseLayout extends Component {
     }).then((response) => {
       return response.json();
     }).then((results) => {
-      console.log('RESULTS', results);
+      // console.log('RESULTS', results);
     })
   }
 
@@ -60,10 +60,10 @@ class BaseLayout extends Component {
 
   toggleLogin = () => {
     if (this.state.loggedIn) {
-      console.log('LOGGING OUT');
+      // console.log('LOGGING OUT');
       this.logout();
     } else {
-      console.log('LOGGING IN');
+      // console.log('LOGGING IN');
       this.toggleDialog();
       this.login();
     }
@@ -98,8 +98,8 @@ class BaseLayout extends Component {
       /><br />
     </div> : null;
 
-    console.log('BASE LAYOUT STATE', this.state);
-    console.log('API', this.props.apiURL);
+    // console.log('BASE LAYOUT STATE', this.state);
+    // console.log('API', this.props.apiURL);
 
     const actions = [
       <FlatButton

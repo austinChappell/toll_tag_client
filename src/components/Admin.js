@@ -13,36 +13,16 @@ class Admin extends Component {
   }
 
   render() {
+
+    // console.log('ADMIN PROPS', this.props)
+
     return (
       <div className="Admin Page">
-        <Table>
-          <div className="item header">
-            <div className="title">
-              First Name
-            </div>
-            <div className="date">
-              Last Name
-            </div>
-            <div className="charge">
-              Balance
-            </div>
-          </div>
-          {this.props.users.map((user, index) => {
-            return (
-              <div className="item" key={index}>
-                <div>
-                  {user.firstName}
-                </div>
-                <div>
-                  {user.lastName}
-                </div>
-                <div>
-                  ${user.balance}
-                </div>
-              </div>
-            )
-          })}
-        </Table>
+        <Table
+          titles={['First Name', 'Last Name', 'Balance']}
+          keys={['firstName', 'lastName', 'balance']}
+          data={this.props.users}
+        />
       </div>
     )
   }

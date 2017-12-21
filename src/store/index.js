@@ -8,7 +8,7 @@ const initialState = {
   tollTags: [],
   events: [],
   loggedIn: false,
-  token: 'D3D02975D337',
+  token: '',
   user: {},
   users: []
 }
@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
     case storeConstants.LOGIN:
       return Object.assign({}, state, { loggedIn: true });
     case storeConstants.LOGOUT:
-      return Object.assign({}, state, { loggedIn: false });
+      return Object.assign({}, state, initialState);
     case storeConstants.SET_EVENTS:
       return Object.assign({}, state, { events: action.events });
     case storeConstants.SET_TOLL_TAGS:

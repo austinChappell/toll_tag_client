@@ -11,12 +11,6 @@ class Dashboard extends Component {
     tollTagId: null
   }
 
-  componentDidMount() {
-    // if (this.props.user.isAdmin) {
-    //   window.location = '/admin'
-    // }
-  }
-
   filterEvents = (id) => {
     const events = this.props.events.filter((event) => {
       return event.toll_tag_id === id;
@@ -32,7 +26,10 @@ class Dashboard extends Component {
             return (
               <div className="tag" key={index} onClick={() => this.filterEvents(tag.id)}>
                 <div className="details">
-                  <h4>{tag.vehicleTag}</h4>
+                  <h4>Year: {tag.year}</h4>
+                  <h4>Make: {tag.make}</h4>
+                  <h4>Model: {tag.model}</h4>
+                  <h4>License Plage: {tag.lpNum}</h4>
                 </div>
                 <div className="balance">
                   <span>Remaining Balance: ${tag.remainingBalance}</span>
@@ -41,34 +38,11 @@ class Dashboard extends Component {
             )
           })}
         </div>
-        <Table>
-          <div className="item header">
-            <div className="title">
-              Location
-            </div>
-            <div className="date">
-              Date
-            </div>
-            <div className="charge">
-              Amount
-            </div>
-          </div>
-          {this.state.events.map((event, index) => {
-            return (
-              <div className="item" key={index}>
-                <div className="title">
-                  {event.location}
-                </div>
-                <div className="date">
-                  {event.created_at}
-                </div>
-                <div className="charge">
-                  ${event.charge}
-                </div>
-              </div>
-            )
-          })}
-        </Table>
+        <Table
+          titles={['Location', 'Date', 'Amount']}
+          keys={['location', 'created_at', 'charge']}
+          data={this.state.events}
+        />
       </div>
     )
   }

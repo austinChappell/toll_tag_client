@@ -21,8 +21,6 @@ class Settings extends Component {
 
   render() {
 
-    console.log('SETTINGS STATE', this.state);
-
     return (
       <div className="Settings Page">
         <form>
@@ -36,7 +34,13 @@ class Settings extends Component {
             onChange={(evt) => this.handleInputChange(evt.target.value, 'lastName')}
             value={this.state.user.lastName}
           /><br />
+          <TextField
+            floatingLabelText="Email"
+            onChange={(evt) => this.handleInputChange(evt.target.value, 'email')}
+            value={this.state.user.email}
+          /><br />
         </form>
+        <h3>Balance: ${this.state.user.balance}</h3>
       </div>
     )
   }
