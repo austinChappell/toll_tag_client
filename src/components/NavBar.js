@@ -97,7 +97,7 @@ class NavBar extends Component {
     const users = this.props.users;
     const match = users.filter(user => user.email === body.username && user.password === body.password);
 
-    if (match) {
+    if (match.length > 0) {
 
       this.props.setUser(match[0]);
       this.getTollTags(match[0]);
