@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 
-let apiURL = 'https://tolltags.herokuapp.com';
+let apiURL = 'https://tolltags.localtunnel.me/api';
 
 const initialState = {
   apiURL: apiURL,
@@ -53,7 +53,7 @@ const initialState = {
   user: {
     active: true,
     isAdmin: false,
-    loggedIn: true,
+    loggedIn: false,
     firstName: 'Austin',
     lastName: 'Chappell',
     email: 'austin@cratebind.com'

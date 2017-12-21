@@ -1,8 +1,8 @@
 .NavBar {
-  a {
-    h2 {
-      color: white;
-      padding: 0 10px;
-    }
+  a h2, h2 {
+    color: white;
+    padding: 0 10px;
+    font-weight: 200;
+    cursor: pointer;
   }
 }

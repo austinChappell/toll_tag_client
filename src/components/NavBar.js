@@ -54,7 +54,7 @@ class NavBar extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      mode: 'no-cors'
+      // mode: 'no-cors'
     }).then((response) => {
       console.log('RESPONSE', response);
       return response.json();
@@ -212,8 +212,8 @@ class NavBar extends Component {
           onLeftIconButtonClick={this.toggleSideBar}
           iconStyleLeft={{ display: 'none' }}
           >
-            <NavLink to="/dashboard" style={{textDecoration: 'none'}}>
-              <h2>Dashboard</h2>
+            <NavLink to={this.props.user.isAdmin ? "/admin" : "/dashboard"} style={{textDecoration: 'none'}}>
+              <h2>{this.props.user.isAdmin ? "Admin" : "Dashboard"}</h2>
             </NavLink>
             <NavLink to="/settings" style={{textDecoration: 'none'}}>
               <h2>Settings</h2>
